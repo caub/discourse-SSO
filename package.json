@@ -1,0 +1,23 @@
+{
+  "name": "sso",
+  "version": "1.0.0",
+  "description": "create Single Sign On url",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caub/sso.git"
+  },
+  "keywords": [
+    "sso",
+    "discourse"
+  ],
+  "author": "Cyril Auburtin <cyril.auburtin@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caub/sso/issues"
+  },
+  "homepage": "https://github.com/caub/sso#readme"
+}
