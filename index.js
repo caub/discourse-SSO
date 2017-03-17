@@ -8,26 +8,20 @@ module.exports = ssoRedirectUrl;
 /*
 
  - query string (typically req.query with express)
- - user (typically taken from req.session or DB)
+ - user (typically taken from req.session or DB, formatted with the fields needed in the SSO response)
  - ssoSecret: sso secret string
 
  returns redirect url, can throw if sig mismatch
  */
-function ssoRedirectUrl({sso, sig}, user, ssoSecret = process.env.SSO_SECRET) {
+function ssoRedirectUrl({sso, sig}, user, ssoSecret = process.env.SSO_SECRET, fields) {
 
 	const digest = crypto.createHmac('sha256', ssoSecret).update(sso).digest('hex');
 
 	if (digest!==sig) throw new Error('Signature mismatch');
 
 	const {nonce, return_sso_url} =  querystring.parse(Buffer.from(sso, 'base64').toString());
-	const return_payload = querystring.stringify({
-		nonce, 
-		email: user.email, 
-		external_id: user._id, 
-		require_activation: true, 
-		name: user.name, 
-		admin: Boolean(user.admin && user.admin.user)
-	});
+	
+	const return_payload = querystring.stringify(Object.assign(user, {nonce}));
 
 	const return_payload_b64 = Buffer.from(return_payload).toString('base64');
 
