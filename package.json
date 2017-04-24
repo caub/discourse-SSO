@@ -1,14 +1,14 @@
 {
-  "name": "sso",
+  "name": "discourse-ssso",
   "version": "1.0.1",
-  "description": "create Single Sign On url",
+  "description": "return Single Sign On url for discourse",
   "main": "index.js",
   "scripts": {
     "test": "node test/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/caub/sso.git"
+    "url": "git+https://github.com/caub/discourse-ssso.git"
   },
   "keywords": [
     "sso",
@@ -17,7 +17,7 @@
   "author": "Cyril Auburtin <cyril.auburtin@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/caub/sso/issues"
+    "url": "https://github.com/caub/discourse-ssso/issues"
   },
-  "homepage": "https://github.com/caub/sso#readme"
+  "homepage": "https://github.com/caub/discourse-ssso#readme"
 }

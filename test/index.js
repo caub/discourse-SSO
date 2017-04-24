@@ -1,15 +1,34 @@
 const querystring = require('querystring');
+const assert = require('assert');
+const {URL} = require('url');
 const sso = require('../');
 
-const query = querystring.parse('sso=bm9uY2U9NWIyNGFhZjVlNWFiMjZlOTg4ODQ3YTg3OTgyZjBkMTMmcmV0dXJu%0AX3Nzb191cmw9aHR0cCUzQSUyRiUyRmRpc2N1c3MuZGVzaWduZXIuaW8lMkZz%0AZXNzaW9uJTJGc3NvX2xvZ2lu%0A&sig=04cfb4d8c6448014d31e8c0dba761c1e0308498bc76066a0e77bf66039ee7cfc');
 
-console.log(query);
+const query = querystring.parse('sso=cmV0dXJuX3Nzb191cmw9aHR0cHMlM0ElMkYlMkZpLmolMkZrJm5vbmNlPTEyM2Fk&sig=f5206e62698e73cc868443c5bfe6c725d1edcc18889b44bd66f688e96e58cd79');
+
+
 try {
 
-	console.log(sso(query, {name: 'Joe', _id: '1', email:'joe@gmail.com'}, '__secret__'))
+	const urlStr = sso(query, {name: 'Joe', _id: '1', email:'joe@gmail.com'}, 'foo bar qux');
+
+	const url = new URL(urlStr);
+
+	assert(url.searchParams.has('sso'));
+	assert(url.searchParams.has('sig'));
+
+	assert.equal(url.hostname, 'i.j');
 
 } catch(e) {
 	console.error(e)
 }
+
+try {
+
+	const urlStr = sso(query, {name: 'Joe', _id: '1', email:'joe@gmail.com'}, 'foo bar qux bad secret');
+
+} catch(e) {
+	assert(e.message)
+}
+
 
 
