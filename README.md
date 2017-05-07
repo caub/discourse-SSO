@@ -1,16 +1,20 @@
 ## Discourse SSO
 
 ```js
-var sso = require('discourse-ssso');
+var sso = require('discoursso');
 
 app.get('/sso', (req, res) => {
 
 	try {
-		const discourseUser = convert(req.user); // make sure to give the right user fields to discourse
-		const url = sso(req.query, discourseUser, ssoSecret);
-		res.redirect(url);
+		// make sure to convert with the right user fields for discourse
+		// email, name, username, avatar_url, admin, require_activation, ...
+		const discourseUser = convert(req.user); 
 
-	} catch(e) {
+		const url = sso(req.query, discourseUser, ssoSecret); // get redirect url
+
+		res.redirect(url); // go there
+
+	} catch(e) { // faled to verify signature, could discard query string as well
 		res.redirect('/login?'+querystring.stringify(req.query));
 	}
 })

@@ -27,7 +27,9 @@ function ssoUrl({sso, sig}, user, ssoSecret = process.env.SSO_SECRET, fields) {
 
 	const digest2 = crypto.createHmac('sha256', ssoSecret).update(return_payload_b64).digest('hex');
 
-	// console.info('SSO logged in', user, ssoSecret, return_sso_url);
+	if (/^(dev|test)/.test(process.env.NODE_ENV)) {
+		console.info('SSO logged in', user, ssoSecret, return_sso_url);
+	}
 
 	return return_sso_url + '?' + querystring.stringify({sso: return_payload_b64, sig: digest2});
 }
