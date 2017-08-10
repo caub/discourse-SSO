@@ -1,4 +1,4 @@
-## Discourse SSO
+## Discourse SSO [![Build Status](https://travis-ci.org/caub/discoursso.svg?branch=master)](https://travis-ci.org/caub/discoursso)
 
 ```js
 var sso = require('discoursso');

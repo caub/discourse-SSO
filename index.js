@@ -13,7 +13,7 @@ module.exports = ssoUrl;
 
  returns redirect url, can throw if sig mismatch
  */
-function ssoUrl({sso, sig}, user, ssoSecret = process.env.SSO_SECRET, fields) {
+function ssoUrl({sso, sig}, user, ssoSecret = process.env.SSO_SECRET) {
 
 	const digest = crypto.createHmac('sha256', ssoSecret).update(sso).digest('hex');
 
